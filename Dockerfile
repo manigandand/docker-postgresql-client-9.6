@@ -29,7 +29,7 @@ USER postgres
 #       allows the RUN command to span multiple lines.
 RUN    /etc/init.d/postgresql start &&\
     psql --command "CREATE USER aircto WITH SUPERUSER PASSWORD 'aircto';" &&\
-    createdb -O aircto_test aircto
+    createdb -O aircto aircto_test
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible.
