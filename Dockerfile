@@ -23,13 +23,13 @@ RUN apt-get install -y python-software-properties software-properties-common pos
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 USER postgres
 
-# Create a PostgreSQL role named ``aircto`` with ``aircto`` as the password and
-# then create a database `aircto_test` owned by the ``aircto`` role.
+# Create a PostgreSQL role named ``gopher`` with ``password`` as the password and
+# then create a database `test_db` owned by the ``gopher`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
 RUN    /etc/init.d/postgresql start &&\
-    psql --command "CREATE USER aircto WITH SUPERUSER PASSWORD 'aircto';" &&\
-    createdb -O aircto aircto_test
+    psql --command "CREATE USER gopher WITH SUPERUSER PASSWORD 'password';" &&\
+    createdb -O gopher test_db
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible.
@@ -48,5 +48,5 @@ VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 CMD ["/usr/lib/postgresql/9.6/bin/postgres", "-D", "/var/lib/postgresql/9.6/main", "-c", "config_file=/etc/postgresql/9.6/main/postgresql.conf"]
 
 # ENV PGHOST=postgres
-# ENV PGUSER=aircto
+# ENV PGUSER=gopher
 # ENV PGSSLMODE=disable
